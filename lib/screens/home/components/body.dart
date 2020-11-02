@@ -4,19 +4,21 @@ import 'package:flutter/material.dart';
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
-        child: Text(
-          "Women",
-          style: Theme.of(context)
-              .textTheme
-              .headline5
-              .copyWith(fontWeight: FontWeight.bold),
-        ),
-      ),
-      Categories(),
-    ]);
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
+            child: Text(
+              "Women",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
+          ),
+          Categories(),
+        ]);
   }
 }
 
@@ -35,9 +37,31 @@ class _CategoriesState extends State<Categories> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
-        itemBuilder: (context, index) => Text(
-          categories[index],
-        ),
+        itemBuilder: (context, index) => buildCategory(index),
+      ),
+    );
+  }
+
+  Widget buildCategory(int index) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            categories[index],
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: selectedIndex == index ? KTextColor : KTextLightColor,
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: kDefaultPaddin / 4),
+            height: 2,
+            width: 30,
+            color: selectedIndex == index ? Colors.black : Colors.transparent,
+          )
+        ],
       ),
     );
   }
